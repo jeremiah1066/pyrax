@@ -17,49 +17,51 @@ import sys
 import pyrax
 import pyrax.exceptions as exc
 
-#Read APIKEY_FILE.txt, and extract Usernames and API KEYS.
-f = open(sys.argv[1], "r")
+error_mess =  "No Such File: " + sys.argv[1] + "\nUsage: " + sys.argv[0] + " APIKEY_FILE.txt CDN_URL"
+try:
+    f = open(sys.argv[1], "r")
+except IOError:
+    sys.exit(error_mess)
 words = f.read().split("\n")
-dict = {}
+user_dict = {}
 for w in words:
     try:
         s = w.split(" ")
         x = len(s)
-        dict[s[0]] = s[1]
+        user_dict[s[0]] = s[1]
     except:
         break
-#Authenticate and test for Datacenter
-for user_n in dict:
+for user_n in user_dict:
     try:
-        pyrax.set_credentials(user_n, dict[user_n])
+        pyrax.set_credentials(user_n, user_dict[user_n])
         london_check = False
     except exc.AuthenticationFailed:
         print user_n, ": False"
         continue
     except AttributeError:
         try:
-            pyrax.set_credentials(user_n, dict[user_n], region="LON")
+            pyrax.set_credentials(user_n, user_dict[user_n], region="LON")
             london_check = True
         except exc.AuthenticationFailed:
             print user_n, ": False"
             continue
     print user_n, ":", pyrax.identity.authenticated
-#Get URIs From Api and Match to third argumet. 
     if london_check is True:
         cf_lon = pyrax.connect_to_cloudfiles(region="LON")
         for i in cf_lon.get_all_containers():
-            if i.cdn_uri == sys.argv[2] or i.cdn_ssl_uri == sys.argv[2] or i.cdn_streaming_uri == sys.argv[2]:
-                print "**", i.name, "**"
-                print "URL:", i.cdn_uri
-                print "SSL:", i.cdn_ssl_uri
-                print "Streaming:", i.cdn_streaming_uri
+            if i.cdn_uri is not None:
+                if i.cdn_uri == sys.argv[2] or i.cdn_ssl_uri == sys.argv[2] or i.cdn_streaming_uri == sys.argv[2]:
+                    print "**", i.name, "**"
+                    print "URL:", i.cdn_uri
+                    print "SSL:", i.cdn_ssl_uri
+                    print "Streaming:", i.cdn_streaming_uri
     else:
         cf_ord = pyrax.connect_to_cloudfiles(region="ORD")
         cf_dfw = pyrax.connect_to_cloudfiles(region="DFW")
         for i in cf_ord.get_all_containers() + cf_dfw.get_all_containers():
             if i.cdn_uri is not None:
                 if i.cdn_uri == sys.argv[2] or i.cdn_ssl_uri == sys.argv[2] or i.cdn_streaming_uri == sys.argv[2]:
-                print "**", i.name, "**"
-                print "URL:", i.cdn_uri
-                print "SSL:", i.cdn_ssl_uri
-                print "Streaming:", i.cdn_streaming_uri
+                    print "**", i.name, "**"
+                    print "URL:", i.cdn_uri
+                    print "SSL:", i.cdn_ssl_uri
+                    print "Streaming:", i.cdn_streaming_uri
