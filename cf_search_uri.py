@@ -1,11 +1,12 @@
 """ 
-Usage .py APIKEY_FILE CDN_URL
+Usage cf_search_uri.py APIKEY_FILE.txt CDN_URL
 The password file format should a text file with each username -space- apikey.
-Below is an example of how a file.txt should look.
+Below is an example of how the APIKEY_FILE.txt should look.
 
 username api_key
 username2 api_key2
 username3 api_key3
+
 """
 
 
