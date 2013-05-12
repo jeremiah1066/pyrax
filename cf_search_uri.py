@@ -33,7 +33,7 @@ for user_n in dict:
         pyrax.set_credentials(user_n, dict[user_n])
     except exc.AuthenticationFailed:
         print user_n,": False"
-        break
+        continue
     print user_n,":", pyrax.identity.authenticated
 
     cf_ord = pyrax.connect_to_cloudfiles(region="ORD")
