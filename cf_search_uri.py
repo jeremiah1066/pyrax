@@ -8,7 +8,7 @@ username api_key
 username2 api_key2
 username3 api_key3
 
-This Script is for US Accounts Only at this time.
+Works with both US and UK accounts. 
 """
 
 
