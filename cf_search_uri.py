@@ -1,4 +1,5 @@
 """ 
+This script will find continer and account info from a CDN URI.
 Usage cf_search_uri.py APIKEY_FILE.txt CDN_URL
 The password file format should a text file with each username -space- apikey.
 Below is an example of how the APIKEY_FILE.txt should look.
