@@ -8,7 +8,7 @@ username api_key
 username2 api_key2
 username3 api_key3
 
-Works with both US and UK accounts. 
+This Script is for US Accounts Only at this time.
 """
 
 
@@ -55,9 +55,9 @@ for user_n in dict:
         cf_ord = pyrax.connect_to_cloudfiles(region="ORD")
         cf_dfw = pyrax.connect_to_cloudfiles(region="DFW")
         for i in cf_ord.get_all_containers() + cf_dfw.get_all_containers():
-                if i.cdn_uri is not None:
-                        if i.cdn_uri == sys.argv[2] or i.cdn_ssl_uri == sys.argv[2] or i.cdn_streaming_uri == sys.argv[2]:
-                            print "**", i.name, "**"
-                            print "URL:", i.cdn_uri
-                            print "SSL:", i.cdn_ssl_uri
-                            print "Streaming:", i.cdn_streaming_uri
+            if i.cdn_uri is not None:
+                if i.cdn_uri == sys.argv[2] or i.cdn_ssl_uri == sys.argv[2] or i.cdn_streaming_uri == sys.argv[2]:
+                print "**", i.name, "**"
+                print "URL:", i.cdn_uri
+                print "SSL:", i.cdn_ssl_uri
+                print "Streaming:", i.cdn_streaming_uri
