@@ -17,7 +17,7 @@ import sys
 import pyrax
 import pyrax.exceptions as exc
 
-
+#Read APIKEY_FILE.txt, and extract Usernames and API KEYS.
 f = open(sys.argv[1], "r")
 words = f.read().split("\n")
 dict = {}
@@ -28,6 +28,7 @@ for w in words:
         dict[s[0]] = s[1]
     except:
         break
+#Authenticate and test for Datacenter
 for user_n in dict:
     try:
         pyrax.set_credentials(user_n, dict[user_n])
@@ -43,6 +44,7 @@ for user_n in dict:
             print user_n, ": False"
             continue
     print user_n, ":", pyrax.identity.authenticated
+#Get URIs From Api and Match to third argumet. 
     if london_check is True:
         cf_lon = pyrax.connect_to_cloudfiles(region="LON")
         for i in cf_lon.get_all_containers():
