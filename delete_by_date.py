@@ -28,6 +28,9 @@ except IndexError:
     print "Usage:",sys.argv[0],"Username API-Key Datacenter Container_name Date(YYYY-MM-dd)"
     sys.exit()
 #AUTHINTICATION SECTION 
+if data_center.upper() != "DFW" and data_center.upper() != "ORD" and data_center.upper() != "LON":
+    print "Invalid Datacenter. Please use DFW, ORD, or LON"
+    sys.exit()
 if data_center.upper() != "LON":
     try:
         pyrax.set_credentials(username, api_key)
@@ -40,9 +43,6 @@ else:
     except exc.AuthenticationFailed:
         print "Authentication Failed"
         sys.exit()
-if data_center.upper() != "DFW" and data_center.upper() != "ORD" and data_center.upper() != "LON":
-    print "Invalid Datacenter. Please use DFW, ORD, or LON"
-    sys.exit()
 if data_center.upper() == "DFW":
     cf = pyrax.connect_to_cloudfiles(region="DFW")
 elif data_center.upper() == "ORD":
