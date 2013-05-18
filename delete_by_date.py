@@ -11,14 +11,10 @@ This Script has worked for me, but I cannot and will not guarantee that it will 
 This scripts supports US and UK accounts. 
 Let me know if you have any questions, issues or comments.
 """
-import sys
-try:
-    import pyrax
-    import pyrax.exceptions as exc
-except ImportError:
-    print "Pyrax Not Found\nPlease install Pyrax\nhttp://tinyurl.com/absxgak"
-    sys.exit()
+import pyrax
+import pyrax.exceptions as exc
 from datetime import datetime
+import sys
 
 old_files = 0
 del_files = 0
@@ -41,19 +37,11 @@ if data_center.upper() != "LON":
     except exc.AuthenticationFailed:
         print "Authentication Failed\nUsername or API-Key may be incorrect"
         sys.exit()
-    except AttributeError:
-        print "No Access To Requested Datacenter"
-        sys.exit()
-    
 else:
     try:
         pyrax.set_credentials(username, api_key, region="LON")
     except exc.AuthenticationFailed:
-        print "Authentication Failed\nUsername, API-Key may be incorrect"
-        print "Sure This Is A UK Account?"
-        sys.exit()
-    except AttributeError:
-        print "No Access To Requested Datacenter"
+        print "Authentication Failed\nUsername or API-Key may be incorret\nSure This Is A UK Account?"
         sys.exit()
 #Connection to Cloud Files
 if data_center.upper() == "DFW":
