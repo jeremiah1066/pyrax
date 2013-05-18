@@ -35,13 +35,13 @@ if data_center.upper() != "LON":
     try:
         pyrax.set_credentials(username, api_key)
     except exc.AuthenticationFailed:
-        print "Authentication Failed"
+        print "Authentication Failed\nUsername or API-Key may be incorrect"
         sys.exit()
 else:
     try:
         pyrax.set_credentials(username, api_key, region="LON")
     except exc.AuthenticationFailed:
-        print "Authentication Failed"
+        print "Authentication Failed\nUsername or API-Key may be incorrect"
         sys.exit()
 #Connection to Cloud Files
 if data_center.upper() == "DFW":
