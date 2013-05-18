@@ -11,10 +11,13 @@ This Script has worked for me, but I cannot and will not guarantee that it will 
 This scripts supports US and UK accounts. 
 Let me know if you have any questions, issues or comments.
 """
-import pyrax
-import pyrax.exceptions as exc
-from datetime import datetime
 import sys
+try:
+    import pyrax
+    import pyrax.exceptions as exc
+except ImportError:
+    print "Pyrax Not Found\nPlease install Pyrax\nhttp://tinyurl.com/absxgak"
+    sys.exit()
 
 old_files = 0
 del_files = 0
