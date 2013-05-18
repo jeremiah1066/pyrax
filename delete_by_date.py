@@ -79,8 +79,8 @@ if old_files == 0:
     print "No Files Older Then the Specified Date Found\nEXITING"
     sys.exit()
 #Ask user and blow away old files
-print "You have",old_files,"Files older then the date you specified."
 print "you have a total of",total_count,"files in the container:",cont_name
+print "You have",old_files,"Files older then the date you specified.:",usr_date
 print "That would leave you with",total_count - old_files,"files left."
 print "Delete Those Files?[y/n]"
 wanna_clear = raw_input("This is a perminant Action\n")
