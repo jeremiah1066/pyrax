@@ -43,6 +43,7 @@ else:
     except exc.AuthenticationFailed:
         print "Authentication Failed"
         sys.exit()
+#Connection to Cloud Files
 if data_center.upper() == "DFW":
     cf = pyrax.connect_to_cloudfiles(region="DFW")
 elif data_center.upper() == "ORD":
@@ -61,6 +62,7 @@ try:
 except exc.NoSuchContainer:
     print "Could not find the container: %s\nEXITING" % (container)
     sys.exit()
+#Searching for old files
 marker = ''
 objs = cont.get_objects()
 total_count = cont.object_count
@@ -76,7 +78,7 @@ while len(objs) is not 0:
 if old_files == 0:
     print "No Files Older Then the Specified Date Found\nEXITING"
     sys.exit()
-
+#Ask user and blow away old files
 print "You have",old_files,"Files older then the date you specified."
 print "you have a total of",total_count,"files in the container:",cont_name
 print "That would leave you with",total_count - old_files,"files left."
