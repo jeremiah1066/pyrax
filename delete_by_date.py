@@ -5,6 +5,9 @@ USERNAME API-KEY DATACENTER(DFW,ORD,LON) CONTAINER_NAME DATE(YYYY-MM-DD)
 Those 5 arguments will search through a container of any size, 
 tell you how many files match your search, and remove those files.
 
+PLEASE USE THIS AT YOUR OWN RISK!!!
+This Script has worked for me, but I cannot and will not guarantee that it will work for you.
+
 This scripts supports US and UK accounts. 
 Let me know if you have any questions, issues or comments.
 """
@@ -25,11 +28,18 @@ except IndexError:
     print "Usage:",sys.argv[0],"Username API-Key Datacenter Container_name Date(YYYY-MM-dd)"
     sys.exit()
 #AUTHINTICATION SECTION 
-try:
-    pyrax.set_credentials(username, api_key)
-except exc.AuthenticationFailed:
-    print "Authentication Failed"
-    sys.exit()
+if data_center.upper() != "LON":
+    try:
+        pyrax.set_credentials(username, api_key)
+    except exc.AuthenticationFailed:
+        print "Authentication Failed"
+        sys.exit()
+else:
+    try:
+        pyrax.set_credentials(username, api_key, region="LON")
+    except exc.AuthenticationFailed:
+        print "Authentication Failed"
+        sys.exit()
 if data_center.upper() != "DFW" and data_center.upper() != "ORD" and data_center.upper() != "LON":
     print "Invalid Datacenter. Please use DFW, ORD, or LON"
     sys.exit()
@@ -39,7 +49,7 @@ elif data_center.upper() == "ORD":
     cf = pyrax.connect_to_cloudfiles(region="ORD")
 elif data_center.upper() == "LON":
     try:
-        pyrax.connect_to_cloudfiles(region="LON")
+        cf = pyrax.connect_to_cloudfiles(region="LON")
     except AttributeError:
         print "Could Not Auth To UK\nSure This Is A UK Account?\nEXITING"
         sys.exit()
