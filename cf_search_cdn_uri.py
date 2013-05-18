@@ -14,8 +14,12 @@ This Script supports both US and UK accounts.
 
 import os
 import sys
-import pyrax
-import pyrax.exceptions as exc
+try:
+    import pyrax
+    import pyrax.exceptions as exc
+except ImportError:
+    print "Pyrax Not Found\nPlease install Pyrax\nhttp://tinyurl.com/absxgak"
+    sys.exit()
 
 error_mess =  "No Such File: " + sys.argv[1] + "\nUsage: " + sys.argv[0] + " APIKEY_FILE.txt CDN_URL"
 try:
