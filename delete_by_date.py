@@ -49,11 +49,7 @@ if data_center.upper() == "DFW":
 elif data_center.upper() == "ORD":
     cf = pyrax.connect_to_cloudfiles(region="ORD")
 elif data_center.upper() == "LON":
-    try:
-        cf = pyrax.connect_to_cloudfiles(region="LON")
-    except AttributeError:
-        print "Could Not Auth To UK\nSure This Is A UK Account?\nEXITING"
-        sys.exit()
+    cf = pyrax.connect_to_cloudfiles(region="LON")
 else:
     print "Something broke I think"
     sys.exit()
