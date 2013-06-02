@@ -35,6 +35,9 @@ for w in words:
         user_dict[s[0]] = s[1]
     except:
         break
+#Rackspace Identity Line
+pyrax.set_setting("identity_type", "rackspace")
+#AuthSection
 for user_n in user_dict:
     try:
         pyrax.set_credentials(user_n, user_dict[user_n])
