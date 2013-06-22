@@ -4,7 +4,7 @@ import argparse
 from novaclient import exceptions as ne
 try:
   import pyrax
-	import pyrax.exceptions as exc
+  import pyrax.exceptions as exc
 except ImportError:
     print "Pyrax Not Found\nPlease install Pyrax\nhttp://tinyurl.com/absxgak"
     sys.exit()
